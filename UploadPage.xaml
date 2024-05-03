@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiDrop.UploadPage"
+             BackgroundColor="#070610"
+             >
+    <Grid Padding="20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="0" x:Name="DropBorder" StrokeDashArray="6" BackgroundColor="#1C1C1C" Stroke="#E2E6EA" HeightRequest="150">
+            <Label Text="Click to browse or drag and drop your files" VerticalOptions="Center" HorizontalOptions="Center" FontFamily="nunito sans" FontSize="14" TextColor="#7FFFFFFF"/>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBrowseFilesClicked"/>
+                <DropGestureRecognizer AllowDrop="True" Drop="OnFileDrop" DragOver="OnDragOver" DragLeave="OnDragLeave"/>
+            </Border.GestureRecognizers>
+
+        </Border>
+
+
+            <ListView Grid.Row="1" HeightRequest="600" Margin="0,0,0,0" VerticalScrollBarVisibility="Always" ItemsSource="{Binding FilesToUpload}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <Label Text="{Binding FileName}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                             Binding="{Binding IsUploaded}"
+                                             Value="True">
+                                            <Setter Property="TextColor" Value="Green"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="{Binding Data.Length, StringFormat='Size: {0} bytes'}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        <Button Grid.Row="3"
+            Text="Upload files"           
+                BackgroundColor="#378D83"
+                TextColor="White"
+                Clicked="OnUploadClicked"
+                CornerRadius="20" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14" WidthRequest="150" HeightRequest="50"/>
+    </Grid>
+</ContentPage>
