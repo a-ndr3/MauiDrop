@@ -18,11 +18,11 @@ namespace MauiDrop
 
         public static async Task InitializeGoogleDriveAsync()
         {
-            string path = "Resources/raw/keys.json";
-            string path2 = "Resources/raw/token.json";
-           
+            //todo change it to use settings/another resource
+            string path = "C:/Users/abloh/source/repos/MauiDrop/Resources/Raw/keys.json";
+            string path2 = "C:/Users/abloh/source/repos/MauiDrop/Resources/Raw/token.json";
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {                
+            {
                 credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.FromStream(stream).Secrets,
                     new[] { DriveService.Scope.Drive },
@@ -36,6 +36,7 @@ namespace MauiDrop
                 HttpClientInitializer = credential,
                 ApplicationName = "MauiDrop",
             });
+
         }
 
         public static bool IsConnected()
@@ -44,8 +45,13 @@ namespace MauiDrop
         }
 
         public static void Disconnect()
-        {
+        {          
             credential?.RevokeTokenAsync(CancellationToken.None);
+        }
+
+        internal static DriveService GetDriveService()
+        {
+            return service;
         }
     }
 }

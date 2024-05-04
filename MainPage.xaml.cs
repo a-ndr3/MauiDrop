@@ -1,4 +1,5 @@
-﻿namespace MauiDrop
+﻿
+namespace MauiDrop
 {
     public partial class MainPage : ContentPage
     {
@@ -9,21 +10,28 @@
 
         private async void OnGoogleDriveClicked(object sender, EventArgs e)
         {
-            if (GDriveHelper.IsConnected())
+            try
             {
-                GDriveHelper.Disconnect();
-                GDbutton.Text = "Google Drive";
-                GDbutton.TextColor = Color.Parse("#FFFFFF");
-                return;
-            }
-            else
-            {
-                await GDriveHelper.InitializeGoogleDriveAsync();
                 if (GDriveHelper.IsConnected())
                 {
-                    GDbutton.Text = "Connected";
-                    GDbutton.TextColor = Color.Parse("#00FF00");
+                    GDriveHelper.Disconnect();
+                    GDbutton.Text = "Google Drive";
+                    GDbutton.TextColor = Color.Parse("#FFFFFF");
+                    return;
                 }
+                else
+                {
+                    await GDriveHelper.InitializeGoogleDriveAsync();
+                    if (GDriveHelper.IsConnected())
+                    {
+                        GDbutton.Text = "Connected";
+                        GDbutton.TextColor = Color.Parse("#00FF00");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -45,10 +53,18 @@
             Navigation.PushAsync(new UploadPage());
         }
 
-        private void OnBrowseFilesClicked(object sender, EventArgs e)
+        private async void OnBrowseFilesClicked(object sender, EventArgs e)
         {
-
+            if (GDriveHelper.IsConnected())
+            {
+                await Navigation.PushAsync(new FilesPage(GDriveHelper.GetDriveService()));
+            }
+            else
+            {
+                await DisplayAlert("Not Connected", "Please connect to services first.", "OK");
+            }
         }
+
     }
 
 }
