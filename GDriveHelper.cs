@@ -39,13 +39,18 @@ namespace MauiDrop
 
         }
 
-        public static bool IsConnected()
+        public static async Task<bool> IsConnected()
         {
+            if (credential != null && credential.Token.IsStale)
+            {
+                await credential.RefreshTokenAsync(CancellationToken.None);
+            }
+
             return credential != null && !credential.Token.IsStale;
         }
 
         public static void Disconnect()
-        {          
+        {
             credential?.RevokeTokenAsync(CancellationToken.None);
         }
 

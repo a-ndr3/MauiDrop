@@ -12,7 +12,7 @@ namespace MauiDrop
         {
             try
             {
-                if (GDriveHelper.IsConnected())
+                if (await GDriveHelper.IsConnected())
                 {
                     GDriveHelper.Disconnect();
                     GDbutton.Text = "Google Drive";
@@ -22,7 +22,7 @@ namespace MauiDrop
                 else
                 {
                     await GDriveHelper.InitializeGoogleDriveAsync();
-                    if (GDriveHelper.IsConnected())
+                    if (await GDriveHelper.IsConnected())
                     {
                         GDbutton.Text = "Connected";
                         GDbutton.TextColor = Color.Parse("#00FF00");
@@ -55,7 +55,7 @@ namespace MauiDrop
 
         private async void OnBrowseFilesClicked(object sender, EventArgs e)
         {
-            if (GDriveHelper.IsConnected())
+            if (await GDriveHelper.IsConnected())
             {
                 await Navigation.PushAsync(new FilesPage(GDriveHelper.GetDriveService()));
             }

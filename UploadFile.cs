@@ -47,9 +47,9 @@ namespace MauiDrop
 
         public UploadFile(string fileName, Stream data)
         {
-            this.FileName = fileName;
-            this.Data = data;
-            this.IsUploaded = false;
+            FileName = fileName;
+            Data = data;
+            IsUploaded = false;
         }
 
         protected void OnPropertyChanged(string propertyName)
