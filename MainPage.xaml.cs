@@ -1,8 +1,14 @@
 ﻿
+using MauiDrop.GoogleService;
+using MauiDrop.Interfaces;
+using MauiDrop.OneDriveService;
+
 namespace MauiDrop
 {
     public partial class MainPage : ContentPage
     {
+        ICloudService? _cloudService;
+
         public MainPage()
         {
             InitializeComponent();
@@ -10,48 +16,101 @@ namespace MauiDrop
 
         private async void OnGoogleDriveClicked(object sender, EventArgs e)
         {
-            try
+            if (_cloudService != null || _cloudService is GoogleDrive)
             {
-                if (await GDriveHelper.IsConnected())
+                await DisplayAlert("Already Connected", "You are already connected to a service.", "OK");
+                return;
+            }
+            else
+            {
+                try
                 {
-                    GDriveHelper.Disconnect();
-                    GDbutton.Text = "Google Drive";
-                    GDbutton.TextColor = Color.Parse("#FFFFFF");
-                    return;
-                }
-                else
-                {
-                    await GDriveHelper.InitializeGoogleDriveAsync();
+                    _cloudService = new GoogleDrive();
+
                     if (await GDriveHelper.IsConnected())
                     {
-                        GDbutton.Text = "Connected";
-                        GDbutton.TextColor = Color.Parse("#00FF00");
+                        GoogleButton(true);
                     }
+                    else
+                    {
+                        GoogleButton(false);
+                    }
+
                 }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", ex.Message, "OK");
+                catch (Exception ex)
+                {
+                    _cloudService = null;
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
             }
         }
 
-        private void OnOneDriveClicked(object sender, EventArgs e)
+        private void GoogleButton(bool connected)
         {
-            //todo implement connect/disconnect logic + 1 connection at a time
-            //if (ODbutton.Text == "Connected")
-            //{
-            //    ODbutton.Text = "OneDrive";
-            //    ODbutton.TextColor = Color.Parse("#FFFFFF");
-            //    return;
-            //}
-            //ODbutton.Text = "Connected";
-            //ODbutton.TextColor = Color.Parse("#00FF00");
+            if (connected)
+            {
+                GDbutton.Text = "Connected";
+                GDbutton.TextColor = Color.Parse("#00FF00");
+                return;
+            }
+            else
+            {
+                GDbutton.Text = "Google Drive";
+                GDbutton.TextColor = Color.Parse("#FFFFFF");
+                return;
+            }
+        }
+        
+        private void OneDriveButton(bool connected)
+        {
+            if (connected)
+            {
+                ODbutton.Text = "Connected";
+                ODbutton.TextColor = Color.Parse("#00FF00");
+                return;
+            }
+            else
+            {
+                ODbutton.Text = "OneDrive";
+                ODbutton.TextColor = Color.Parse("#FFFFFF");
+                return;
+            }
+        }
+
+        private async void OnOneDriveClicked(object sender, EventArgs e)
+        {
+            if (_cloudService != null || _cloudService is OneDrive)
+            {
+                await DisplayAlert("Already Connected", "You are already connected to a service.", "OK");
+                return;
+            }
+            else
+            {
+                try
+                {
+                    _cloudService = new OneDrive();
+
+                    if (await OneDriveHelper.IsConnected())
+                    {
+                        OneDriveButton(true);
+                    }
+                    else
+                    {
+                        OneDriveButton(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _cloudService = null;
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
+            }
         }
 
         private async void OnUploadFilesClicked(object sender, EventArgs e)
         {
-            if (await GDriveHelper.IsConnected())
-                await Navigation.PushAsync(new UploadPage());
+            if (_cloudService != null)
+                await Navigation.PushAsync(new UploadPage(_cloudService));
             else
             {
                 await DisplayAlert("Not Connected", "Please connect to services first.", "OK");
@@ -60,9 +119,9 @@ namespace MauiDrop
 
         private async void OnBrowseFilesClicked(object sender, EventArgs e)
         {
-            if (await GDriveHelper.IsConnected())
+            if (_cloudService != null)
             {
-                await Navigation.PushAsync(new FilesPage(GDriveHelper.GetDriveService()));
+                await Navigation.PushAsync(new FilesPage(_cloudService));
             }
             else
             {

@@ -5,8 +5,18 @@
              BackgroundColor="#070610"
              >
     <StackLayout Padding="20">
+        <Button Text="Update"
+                x:Name="GDbutton"
+                BackgroundColor="#101013"
+                TextColor="White"
+                CornerRadius="20"
+                Margin="0,0,0,0"              
+                Clicked="GDbutton_Clicked"
+                BorderColor="#378D83"   
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14" WidthRequest="150">
+        </Button>
         <ListView x:Name="filesListView"
-                  ItemsSource="{Binding GoogleFiles}"
+                  ItemsSource="{Binding CloudFiles}"
                   SeparatorVisibility="None">
             <ListView.Header>
                 <Grid BackgroundColor="#070610" Padding="10">

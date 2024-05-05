@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiDrop
+namespace MauiDrop.DataItems
 {
     public class UploadFile : INotifyPropertyChanged
     {

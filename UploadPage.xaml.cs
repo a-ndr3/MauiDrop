@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Storage;
 using Microsoft.Maui.ApplicationModel.DataTransfer;
 using Microsoft.Maui.Storage;
+using MauiDrop.Managers;
+using MauiDrop.DataItems;
+using MauiDrop.Interfaces;
 
 namespace MauiDrop;
 
 public partial class UploadPage : ContentPage
 {
-    public UploadPage()
+    public UploadPage(ICloudService service)
     {
         InitializeComponent();
         BindingContext = UploadManager.Instance;
+        UploadManager.Instance.Initialize(service);
 
         UploadManager.Instance.ProgressChanged += OnUploadProgressChanged;
         UploadManager.Instance.UploadCompleted += OnUploadCompleted;
@@ -36,14 +40,24 @@ public partial class UploadPage : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
+
         UploadManager.Instance.ProgressChanged -= OnUploadProgressChanged;
         UploadManager.Instance.UploadCompleted -= OnUploadCompleted;
+
+        if (UploadManager.Instance.FilesToUpload != null)
+        {
+            var listOfUploaded = UploadManager.Instance.FilesToUpload.Where(f => f.IsUploaded).ToList();
+            foreach (var file in listOfUploaded)
+            {
+                UploadManager.Instance.FilesToUpload.Remove(file);
+            }
+        }
     }
 
     private void OnUploadCompleted()
     {
         MainThread.BeginInvokeOnMainThread(() =>
-        {
+        {         
             DisplayAlert("Success", "All files have been uploaded.", "OK");
         });
     }
@@ -76,12 +90,9 @@ public partial class UploadPage : ContentPage
             var result = await FilePicker.PickMultipleAsync(pickOptions);
             if (result != null)
             {
-                foreach (var file in result)
-                {
-                    var stream = await file.OpenReadAsync();
-                    UploadManager.Instance.FilesToUpload.Add(new UploadFile(file.FileName, stream));
-                }
+                await MoveFilesToUpload(result);
             }
+            
         }
         catch (Exception ex)
         {
@@ -89,24 +100,18 @@ public partial class UploadPage : ContentPage
         }
     }
 
+    private async Task MoveFilesToUpload(IEnumerable<FileResult> files)
+    {
+        foreach (var file in files)
+        {
+            var stream = await file.OpenReadAsync();
+            UploadManager.Instance.FilesToUpload.Add(new UploadFile(file.FileName, stream));
+        }
+    }
+
     private async void OnFileDrop(object sender, DropEventArgs e)
     {
         DropBorder.Stroke = Color.FromHex("#E2E6EA");
-
-        var items = e.Data;
-        var x = 1;
-
-
-        //if (e.Data != null && e.Data.Contains(DataPackageOperation.Copy))
-        //{
-        //    var files = await e.Data.GetFileAsync();
-        //    if (files != null)
-        //    {
-        //        var stream = await files.OpenReadAsync();
-        //        uploadManager.FilesToUpload.Add(new UploadFile(files.FileName, stream));
-        //    }
-        //}
-
     }
 
 }

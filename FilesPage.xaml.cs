@@ -1,15 +1,16 @@
 using Google.Apis.Drive.v3;
+using MauiDrop.Managers;
 
 namespace MauiDrop;
 
 public partial class FilesPage : ContentPage
 {
-    private FilesViewModel viewModel;
+    private ViewCloudFilesManager viewModel;
 
-    public FilesPage(DriveService service)
+    public FilesPage(Interfaces.ICloudService service)
     {
         InitializeComponent();
-        viewModel = new FilesViewModel(service);
+        viewModel = new Managers.ViewCloudFilesManager(service);
         BindingContext = viewModel;
     }
 
@@ -17,5 +18,15 @@ public partial class FilesPage : ContentPage
     {
         base.OnAppearing();
         await viewModel.LoadFilesAsync();
+    }
+
+    private async void Update()
+    {
+        await viewModel.Update();
+    }
+
+    private void GDbutton_Clicked(object sender, EventArgs e)
+    {
+        Update();
     }
 }

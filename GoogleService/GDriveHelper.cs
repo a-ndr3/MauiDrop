@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MauiDrop
+namespace MauiDrop.GoogleService
 {
     internal class GDriveHelper
     {
