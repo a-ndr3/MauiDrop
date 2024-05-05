@@ -14,6 +14,7 @@ namespace MauiDrop.DataItems
         private string fileName;
         private Stream data;
         private bool isUploaded;
+        private string fileSize;
 
         public string FileName
         {
@@ -32,6 +33,7 @@ namespace MauiDrop.DataItems
             {
                 data = value;
                 OnPropertyChanged(nameof(Data));
+                OnPropertyChanged(nameof(FileSize));
             }
         }
 
@@ -55,6 +57,12 @@ namespace MauiDrop.DataItems
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
+        public string FileSize => GetFileSize();
+        public string GetFileSize()
+        {
+            return (Data.Length / 1024 / 1024 == 0) ? $"{Data.Length / 1024} Kb" : $"{Data.Length / 1024 / 1024} Mb";
         }
     }
 }

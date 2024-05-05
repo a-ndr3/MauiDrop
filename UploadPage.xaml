@@ -38,7 +38,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding Data.Length, StringFormat='Size: {0} bytes'}"
+                            <Label Text="{Binding FileSize, StringFormat='Size: {0}'}"
                                VerticalOptions="Center"
                                HorizontalOptions="End"/>
                             </StackLayout>
