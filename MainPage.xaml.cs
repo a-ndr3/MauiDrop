@@ -38,19 +38,24 @@ namespace MauiDrop
         private void OnOneDriveClicked(object sender, EventArgs e)
         {
             //todo implement connect/disconnect logic + 1 connection at a time
-            if (ODbutton.Text == "Connected")
-            {
-                ODbutton.Text = "OneDrive";
-                ODbutton.TextColor = Color.Parse("#FFFFFF");
-                return;
-            }
-            ODbutton.Text = "Connected";
-            ODbutton.TextColor = Color.Parse("#00FF00");
+            //if (ODbutton.Text == "Connected")
+            //{
+            //    ODbutton.Text = "OneDrive";
+            //    ODbutton.TextColor = Color.Parse("#FFFFFF");
+            //    return;
+            //}
+            //ODbutton.Text = "Connected";
+            //ODbutton.TextColor = Color.Parse("#00FF00");
         }
 
-        private void OnUploadFilesClicked(object sender, EventArgs e)
+        private async void OnUploadFilesClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new UploadPage());
+            if (await GDriveHelper.IsConnected())
+                await Navigation.PushAsync(new UploadPage());
+            else
+            {
+                await DisplayAlert("Not Connected", "Please connect to services first.", "OK");
+            }
         }
 
         private async void OnBrowseFilesClicked(object sender, EventArgs e)

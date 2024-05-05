@@ -60,22 +60,23 @@
                     HorizontalOptions="Center" />
             </Border>
 
-        <Button Text="GoogleDrive"
+            <Button Text="GoogleDrive"
                 x:Name="GDbutton"
                 BackgroundColor="#101013"
                 TextColor="White"
                 CornerRadius="20"
-                Margin="0,50,0,0"
+                Margin="0,50,0,0"              
                 Clicked="OnGoogleDriveClicked"
-                BorderColor="#378D83"             
-                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"/>
-        <Button Text="OneDrive"
+                BorderColor="#378D83"   
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14">
+            </Button>
+            <Button Text="OneDrive"
                 x:Name="ODbutton"
                 BackgroundColor="#101013"
-                TextColor="White"
+                TextColor="Gray"
                 CornerRadius="20"
                 Clicked="OnOneDriveClicked"
-                BorderColor="#378D83"
+                BorderColor="Gray"
                 BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"
                 />
 

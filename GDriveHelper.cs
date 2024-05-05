@@ -51,6 +51,7 @@ namespace MauiDrop
 
         public static void Disconnect()
         {
+            //todo implement disconnect logic
             credential?.RevokeTokenAsync(CancellationToken.None);
         }
 

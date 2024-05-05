@@ -20,9 +20,9 @@ public partial class UploadPage : ContentPage
         UploadManager.Instance.UploadCompleted += OnUploadCompleted;
     }
 
-    private void OnUploadClicked(object sender, EventArgs e)
+    private async void OnUploadClicked(object sender, EventArgs e)
     {
-        UploadManager.Instance.StartUpload();
+        await UploadManager.Instance.StartUpload();
     }
 
     private void OnUploadProgressChanged(int completed, int total)
