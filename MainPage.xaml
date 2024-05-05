@@ -73,10 +73,10 @@
             <Button Text="OneDrive"
                 x:Name="ODbutton"
                 BackgroundColor="#101013"
-                TextColor="Gray"
+                TextColor="White"
                 CornerRadius="20"
                 Clicked="OnOneDriveClicked"
-                BorderColor="Gray"
+                BorderColor="#378D83"
                 BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"
                 />
 

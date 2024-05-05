@@ -79,6 +79,10 @@ namespace MauiDrop
 
         private async void OnOneDriveClicked(object sender, EventArgs e)
         {
+            await DisplayAlert("Error", "Tenant issue", "Cancel");
+            
+            return;
+
             if (_cloudService != null || _cloudService is OneDrive)
             {
                 await DisplayAlert("Already Connected", "You are already connected to a service.", "OK");
