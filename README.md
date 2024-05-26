@@ -27,7 +27,7 @@ cd MauiDrop
 ## Authentication
 ### Google Drive
 - Set Up Credentials: Obtain OAuth 2.0 credentials from the Google Developers Console.
-- Configure the Project: Add your client_id and client_secret to the appsettings.json or environment variables.
+- Configure the Project: Get your keys.json file using [Google Cloud](https://cloud.google.com/)
 - Authenticate: The application will prompt for Google authentication on the first run.
 
 ### OneDrive
@@ -41,8 +41,8 @@ OneDrive support is implemented however there are restrictions preventing usage 
 - Upload Files: Select files from your local machine to upload. The application will handle the rest asynchronously.
 
 ## Configuration
-You can configure using json keys or through environment variables. Key configurations include:
-- GoogleClientId
-- GoogleClientSecret
+You can configure the app using Settings button on the Main page.
+- For now the configuration includes only storage of the KEY files
+  
+![image](https://github.com/a-ndr3/MauiDrop/assets/66060105/cd252292-51ec-4a4f-9f1b-e05265cfe890)
 
-![image](https://github.com/a-ndr3/MauiDrop/assets/66060105/f8dc14db-316c-4ab3-88e2-022132afe920)
