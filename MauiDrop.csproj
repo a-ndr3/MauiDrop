@@ -62,7 +62,6 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Raw\AboutAssets.txt" />
-	  <None Remove="Resources\Raw\keys.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +81,9 @@
 	  <MauiXaml Update="FilesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Settings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UploadPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -89,6 +91,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Resources\Fonts\" />
+	  <Folder Include="Resources\Raw\" />
 	</ItemGroup>
 
 </Project>

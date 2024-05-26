@@ -18,9 +18,15 @@ namespace MauiDrop.GoogleService
 
         public static async Task InitializeGoogleDriveAsync()
         {
-            //todo change it to use settings/another resource
-            string path = "C:/Users/abloh/source/repos/MauiDrop/Resources/Raw/keys.json";
-            string path2 = "C:/Users/abloh/source/repos/MauiDrop/Resources/Raw/token.json";
+            string path = Preferences.Get("KeyFilePath", string.Empty);
+
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new InvalidOperationException("Key file path is not set. Please select a key file in the settings.");
+            }
+
+            string token = Path.Combine(Path.GetDirectoryName(path), "token.json");
+
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
@@ -28,7 +34,7 @@ namespace MauiDrop.GoogleService
                     new[] { DriveService.Scope.Drive },
                     "user",
                     CancellationToken.None,
-                    new FileDataStore(path2, true));
+                    new FileDataStore(token, true));
             }
 
             service = new DriveService(new BaseClientService.Initializer()

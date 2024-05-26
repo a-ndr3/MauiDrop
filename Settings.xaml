@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiDrop.Settings"
+             HeightRequest="800"
+             WidthRequest="375" 
+             BackgroundColor="#070610"
+             >
+    <StackLayout Padding="20" Margin="0,40,0,0">
+        <HorizontalStackLayout>
+            <Label Margin="90,0,0,0"></Label>
+            <Label Text="Select" 
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+            <Label Text=" Google" 
+               TextColor="#378D83"
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+            <Label Text=" key file" 
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <Button Text="Choose file"
+                x:Name="OFile"
+                BackgroundColor="#101013"
+                TextColor="White"
+                Margin="80,30,80,0"
+                CornerRadius="20"
+                Clicked="OnChooseFileClicked"
+                BorderColor="#378D83"
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"
+                />
+        <Label x:Name="FilePathLabel" 
+               Margin="0,30,0,0"
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Margin="0,40,0,0">
+            <Label Margin="90,0,0,0"></Label>
+            <Label Text="Select" 
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+            <Label Text=" OneDrive" 
+               TextColor="#378D83"
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+            <Label Text=" key file" 
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <Button Text="Choose file"
+                x:Name="ODriveFile"
+                BackgroundColor="#101013"
+                TextColor="White"
+                Margin="80,30,80,0"
+                CornerRadius="20"
+                Clicked="OnChooseOneDriveFileClicked"
+                BorderColor="#378D83"
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"
+                />
+        <Label x:Name="ODFilePathLabel"
+               Margin="0,30,0,0"
+               FontFamily="nuntio" FontAttributes="Bold" FontSize="15"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+    </StackLayout>
+</ContentPage>

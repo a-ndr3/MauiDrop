@@ -111,6 +111,11 @@ namespace MauiDrop
             }
         }
 
+        private async void OnSettingsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Settings());
+        }
+
         private async void OnUploadFilesClicked(object sender, EventArgs e)
         {
             if (_cloudService != null)
