@@ -9,7 +9,9 @@ using Microsoft.Maui.Storage;
 using MauiDrop.Managers;
 using MauiDrop.DataItems;
 using MauiDrop.Interfaces;
-
+#if WINDOWS
+using Microsoft.UI.Input;
+#endif
 namespace MauiDrop;
 
 public partial class UploadPage : ContentPage
@@ -17,11 +19,21 @@ public partial class UploadPage : ContentPage
     public UploadPage(ICloudService service)
     {
         InitializeComponent();
+        this.Loaded += UploadPageLoaded;
         BindingContext = UploadManager.Instance;
         UploadManager.Instance.Initialize(service);
 
         UploadManager.Instance.ProgressChanged += OnUploadProgressChanged;
         UploadManager.Instance.UploadCompleted += OnUploadCompleted;
+    }
+
+    private void UploadPageLoaded(object? sender, EventArgs e)
+    {
+#if WINDOWS
+        Microsoft.UI.Xaml.Controls.Button uploadBtn = (Microsoft.UI.Xaml.Controls.Button)this.uploadBtn.Handler.PlatformView;
+        ElementExtension.ChangeCursor(uploadBtn, InputSystemCursor.Create(InputSystemCursorShape.Hand));
+        uploadBtn.AddHoverEffect();
+#endif
     }
 
     private async void OnUploadClicked(object sender, EventArgs e)
@@ -57,7 +69,7 @@ public partial class UploadPage : ContentPage
     private void OnUploadCompleted()
     {
         MainThread.BeginInvokeOnMainThread(() =>
-        {         
+        {
             DisplayAlert("Success", "All files have been uploaded.", "OK");
         });
     }
@@ -66,9 +78,9 @@ public partial class UploadPage : ContentPage
     {
         DropBorder.Stroke = Color.FromHex("#378D83");
 #if WINDOWS
-    var dragUI = e.PlatformArgs.DragEventArgs.DragUIOverride;
-    dragUI.IsCaptionVisible = false;
-    dragUI.IsGlyphVisible = false;
+        var dragUI = e.PlatformArgs.DragEventArgs.DragUIOverride;
+        dragUI.IsCaptionVisible = false;
+        dragUI.IsGlyphVisible = false;
 #endif
         e.AcceptedOperation = DataPackageOperation.Copy;
     }
@@ -92,7 +104,7 @@ public partial class UploadPage : ContentPage
             {
                 await MoveFilesToUpload(result);
             }
-            
+
         }
         catch (Exception ex)
         {

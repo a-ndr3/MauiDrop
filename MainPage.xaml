@@ -27,6 +27,7 @@
                      BackgroundColor="Transparent"
                      HorizontalOptions="Start" 
                      VerticalOptions="Start"
+                     x:Name="STbutton"
                      Clicked="OnSettingsClicked"
                      Margin="10"
                      WidthRequest="40"
@@ -69,8 +70,8 @@
                 Margin="0,50,0,0"              
                 Clicked="OnGoogleDriveClicked"
                 BorderColor="#378D83"   
-                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14">
-            </Button>
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14" />
+
             <Button Text="OneDrive"
                 x:Name="ODbutton"
                 BackgroundColor="#101013"
@@ -78,16 +79,17 @@
                 CornerRadius="20"
                 Clicked="OnOneDriveClicked"
                 BorderColor="#378D83"
-                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"
-                />
+                BorderWidth="2" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14" />
 
         <Button Text="Upload files"
                 BackgroundColor="#378D83"
                 TextColor="White"
+                x:Name="UPbtn"
                 Clicked="OnUploadFilesClicked"
-                CornerRadius="20" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"/>
+                CornerRadius="20" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14" />
         <Button Text="Browse files"
                 BackgroundColor="#378D83"
+                x:Name="BRSbtn"
                 TextColor="White"
                 Clicked="OnBrowseFilesClicked"
                 CornerRadius="20" FontFamily="nunito" FontAutoScalingEnabled="True" FontAttributes="Bold" FontSize="14"/>
