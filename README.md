@@ -23,6 +23,8 @@ MauiDrop is a file uploader application for the .NET course, supporting Google D
 git clone https://github.com/a-ndr3/MauiDrop.git
 cd MauiDrop
 ```
+> [!NOTE]
+You can also check the released versions and download a runnable app.
 
 ## Authentication
 ### Google Drive
@@ -31,7 +33,7 @@ cd MauiDrop
 - Authenticate: The application will prompt for Google authentication on the first run.
 
 ### OneDrive
-> [!NOTE]
+> [!WARNING]
 OneDrive support is implemented however there are restrictions preventing usage of API
 
 ## Usage
